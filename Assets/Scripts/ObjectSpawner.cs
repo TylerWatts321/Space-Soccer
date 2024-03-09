@@ -12,6 +12,14 @@ public class ObjectSpawner : MonoBehaviour
 
     public float SpawnTimeMultiplier = 6f;
 
+    // Kaleb Code
+    private AsteroidPoolManager asteroidPoolManager;
+
+    private void Start()
+    {
+        asteroidPoolManager = AsteroidPoolManager.instance;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (BountyManager.instance.currentWave.AsteroidGoals.Contains(this) 
@@ -42,15 +50,25 @@ public class ObjectSpawner : MonoBehaviour
         GameObject spawnedAsteroid = null;
         if (side.Equals(CameraSide.Up) || side.Equals(CameraSide.Down))
         {
-            spawnedAsteroid = Instantiate(AsteroidPrefab, new Vector2(DetermineSpawnPointX(colliderBounds, colliderCenter), colliderCenter.y), Quaternion.identity);
-            spawnedAsteroid.GetComponent<Asteroid>().destination = new Vector2(DetermineSpawnPointX(colliderBounds, colliderCenter), -colliderCenter.y);
-            spawnedAsteroid.GetComponent<Asteroid>().SendFlying();
+            // Object pooling
+            spawnedAsteroid = asteroidPoolManager.GetAsteroid();
+            
+            spawnedAsteroid.transform.position = new Vector2(DetermineSpawnPointX(colliderBounds, colliderCenter), colliderCenter.y);
+            
+            Asteroid asteroidComponent = spawnedAsteroid.GetComponent<Asteroid>();
+            asteroidComponent.destination = new Vector2(DetermineSpawnPointX(colliderBounds, colliderCenter), -colliderCenter.y);
+            asteroidComponent.SendFlying();
         }
         else if (side.Equals(CameraSide.Right) || side.Equals(CameraSide.Left))
         {
-            spawnedAsteroid = Instantiate(AsteroidPrefab, new Vector2(colliderCenter.x, DetermineSpawnPointY(colliderBounds, colliderCenter)), Quaternion.identity);
-            spawnedAsteroid.GetComponent<Asteroid>().destination = new Vector2(-colliderCenter.x, DetermineSpawnPointY(colliderBounds, colliderCenter));
-            spawnedAsteroid.GetComponent<Asteroid>().SendFlying();
+            // Object Pooling
+            spawnedAsteroid = asteroidPoolManager.GetAsteroid();
+            
+            spawnedAsteroid.transform.position = new Vector2(colliderCenter.x, DetermineSpawnPointY(colliderBounds, colliderCenter));
+
+            Asteroid asteroidComponent = spawnedAsteroid.GetComponent<Asteroid>();
+            asteroidComponent.destination = new Vector2(-colliderCenter.x, DetermineSpawnPointY(colliderBounds, colliderCenter));
+            asteroidComponent.SendFlying();
         }
     }
 

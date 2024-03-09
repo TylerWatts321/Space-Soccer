@@ -48,6 +48,9 @@ public class BountyManager : MonoBehaviour
     public SpawnState state = SpawnState.SPAWNING;
 
     private int waveCount = 0;
+
+    // Kaleb Code
+    public float handleWaveEvery = 0.1f;
     
     public void Initialize()
     {
@@ -80,11 +83,7 @@ public class BountyManager : MonoBehaviour
     public void Start()
     {
         UpdateScore(score);
-    }
-
-    private void Update()
-    {
-        HandleWaves();
+        StartCoroutine(HandleWavesCoroutine());
     }
 
     public void UpdatePlayerScore(int num)
@@ -108,6 +107,27 @@ public class BountyManager : MonoBehaviour
         else if (waveCountdown <= 0) { CreateWave(); }
         else { waveCountdown -= Time.deltaTime;  }
     }
+
+    private IEnumerator HandleWavesCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(handleWaveEvery);
+
+            if (state == SpawnState.WAITING)
+            {
+                if (WaveOver())
+                {
+                    WaveCompleted();
+                }
+
+                continue;
+            }
+            else if (waveCountdown <= 0) { CreateWave(); }
+            else { waveCountdown -= handleWaveEvery; }
+        }
+    }
+
     public bool WaveOver()
     {
         if ((Time.time - currentWave.WaveStartTime) >= maxWaveLength * 60) { return true; }

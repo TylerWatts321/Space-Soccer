@@ -18,6 +18,11 @@ public class HPTracker : MonoBehaviour
     public PlayerHealth PlayerHealth;
 
     float hFraction;
+
+    // Kaleb Code
+    public float updateHealthbarEvery = 0.3f;
+
+
     void Awake()
     {
         float hFraction = 1f;
@@ -25,6 +30,11 @@ public class HPTracker : MonoBehaviour
         backHealthBar.fillAmount = hFraction;
 
         PlayerHealth.UpdateHealth += UpdateHealth;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(UpdateHealthbarCoroutine());
     }
 
     public void OnDisable()
@@ -68,32 +78,43 @@ public class HPTracker : MonoBehaviour
         lerpTimer /= 2;
     }
 
-    private void Update()
+    private IEnumerator UpdateHealthbarCoroutine()
     {
-        fillF = frontHealthBar.fillAmount;
-        fillB = backHealthBar.fillAmount;
-
-        if (fillB > hFraction)
+        while (true)
         {
-            frontHealthBar.fillAmount = hFraction;
-            lerpTimer += Time.deltaTime;
-            float percentComplete = lerpTimer / _chipSpeed;
-            backHealthBar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
+            fillF = frontHealthBar.fillAmount;
+            fillB = backHealthBar.fillAmount;
 
-            if (Mathf.Abs(fillB - hFraction) < endLimit)
-                backHealthBar.fillAmount = hFraction;
-        }
-        else if (fillF < hFraction)
-        {
-            backHealthBar.fillAmount = hFraction;
-            lerpTimer += Time.deltaTime;
-            float percentComplete = lerpTimer / _chipSpeed;
-            frontHealthBar.fillAmount = Mathf.Lerp(fillF, hFraction, percentComplete);
-
-            if (Mathf.Abs(fillF - hFraction) < endLimit)
+            if (fillB > hFraction)
+            {
                 frontHealthBar.fillAmount = hFraction;
-        }
 
-        lerpTimer /= 2;
+                //lerpTimer += Time.deltaTime;
+                lerpTimer += updateHealthbarEvery;
+
+                float percentComplete = lerpTimer / _chipSpeed;
+                backHealthBar.fillAmount = Mathf.Lerp(fillB, hFraction, percentComplete);
+
+                if (Mathf.Abs(fillB - hFraction) < endLimit)
+                    backHealthBar.fillAmount = hFraction;
+            }
+            else if (fillF < hFraction)
+            {
+                backHealthBar.fillAmount = hFraction;
+
+                //lerpTimer += Time.deltaTime;
+                lerpTimer += updateHealthbarEvery;
+
+                float percentComplete = lerpTimer / _chipSpeed;
+                frontHealthBar.fillAmount = Mathf.Lerp(fillF, hFraction, percentComplete);
+
+                if (Mathf.Abs(fillF - hFraction) < endLimit)
+                    frontHealthBar.fillAmount = hFraction;
+            }
+
+            lerpTimer /= 2;
+
+            yield return new WaitForSeconds(updateHealthbarEvery);
+        }
     }
 }

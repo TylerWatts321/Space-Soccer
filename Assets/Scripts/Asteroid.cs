@@ -14,9 +14,13 @@ public class Asteroid : MonoBehaviour
 
     public int health;
 
+    // Kaleb Code
+    private AsteroidPoolManager asteroidPoolManager;
+
     public void Start()
     {
         transform.eulerAngles = new Vector3(0, 0, Random.Range(0, 360));
+        asteroidPoolManager = AsteroidPoolManager.instance;
     }
     public void SendFlying()
     {
@@ -30,13 +34,15 @@ public class Asteroid : MonoBehaviour
     IEnumerator KilltheAsteroid(int time)
     {
         yield return new WaitForSecondsRealtime(time);
-        Destroy(gameObject);
+
+        // Release back to pool
+        asteroidPoolManager.RemoveAsteroid(this.gameObject);
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        if(destination == null || destination == Vector3.zero)
-            transform.Rotate(0, 0, rotateSpeed * Time.deltaTime); //rotates 50 degrees per second around z axis
+        if (destination == null || destination == Vector3.zero)
+            transform.Rotate(0, 0, rotateSpeed * 5.0f); //rotates 50 degrees per second around z axis
     }
 
     public void Damage(int damage)
