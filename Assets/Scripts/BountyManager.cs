@@ -228,12 +228,14 @@ public class BountyManager : MonoBehaviour
 
     public void GameOver()
     {
+        Debug.LogError("Game Over");
         DisableInput();
         GameOverEvent();
     }
 
     public void RestartGame()
     {
+        Debug.LogError("Restarting Game");
         Time.timeScale = 1f;
         TurnOff();
         EnableInput();
