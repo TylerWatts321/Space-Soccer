@@ -8,8 +8,8 @@ public class Asteroid : MonoBehaviour
     public float speed;
     public float rotateSpeed;
     public Vector3 destination;
-    public AudioClip soundFile;
-
+    public AudioClip[] soundFiles;
+    public AudioClip asteroidBreak;
     public int Score;
 
     public int health;
@@ -42,6 +42,14 @@ public class Asteroid : MonoBehaviour
     public void Damage(int damage)
     {
 
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.name.Equals("Spaceship"))
+            AudioManager.Instance.PlayCollisionSound(GetComponent<Collider2D>(), collision.collider, soundFiles[Random.Range(0, soundFiles.Length)]);
+        else
+            AudioManager.Instance.PlayCollisionSound(GetComponent<Collider2D>(), collision.collider, asteroidBreak);
     }
 
 }

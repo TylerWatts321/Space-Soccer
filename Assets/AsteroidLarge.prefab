@@ -130,7 +130,13 @@ MonoBehaviour:
   speed: 10
   rotateSpeed: 30
   destination: {x: 0, y: 0, z: 0}
-  soundFile: {fileID: 0}
+  soundFiles:
+  - {fileID: 8300000, guid: d742a5d7bdfca7846b30ad59bec288ca, type: 3}
+  - {fileID: 8300000, guid: 130f08febebf1324aad2da3d1529cc4e, type: 3}
+  - {fileID: 8300000, guid: d55701deedc70fd46b68f28997715fa0, type: 3}
+  - {fileID: 8300000, guid: 4e15d464c1a264f489095d14d2a5d479, type: 3}
+  - {fileID: 8300000, guid: bbe8dfd6208ef7547a521772b84c90e3, type: 3}
+  asteroidBreak: {fileID: 8300000, guid: 6dec8c26b74859d42a3bf25b003a5ed3, type: 3}
   Score: 75
   health: 0
 --- !u!60 &7834096128701902600

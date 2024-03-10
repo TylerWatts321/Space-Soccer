@@ -12,9 +12,11 @@ public class PlayerInput : MonoBehaviour
     public event Action OnFireStarted = delegate { };
     public event Action OnFireCanceled = delegate { };
 
+    public AudioClip sideThrusterClip;
+    public AudioClip thrusterClip;
+
     private Camera MainCamera;
     bool MoveHeld;
-
     private void Start()
     {
         MainCamera = Camera.main;
@@ -49,6 +51,23 @@ public class PlayerInput : MonoBehaviour
     {
         if (context.performed || MoveHeld == true) { MoveHeld = true; moveDir = context.ReadValue<Vector2>(); }
 
+        if (context.ReadValue<Vector2>().x != 0)
+        {
+            AudioManager.Instance.PlaySound(AudioManagerChannels.ThrusterChannel, thrusterClip);
+        }
+        else
+        {
+            AudioManager.Instance.StopSound(AudioManagerChannels.ThrusterChannel);
+        }
+        if (context.ReadValue<Vector2>().y != 0)
+        {
+            AudioManager.Instance.PlaySound(AudioManagerChannels.SideThrusterChannel, sideThrusterClip);
+        }
+        else
+        {
+            AudioManager.Instance.StopSound(AudioManagerChannels.SideThrusterChannel);
+        }
+        
         if (context.canceled) { MoveHeld = false; Stop(); }
     }
 

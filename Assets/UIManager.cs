@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        if(BountyManager.instance == null) { return; }
         BountyManager.instance.WaveStarted += UpdateInfoOnWaveStart;
         BountyManager.instance.UpdateScore += UpdateScore;
 
@@ -137,6 +138,9 @@ public class UIManager : MonoBehaviour
         Cursor.visible = true;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(restartGameOverButton);
+
+        AudioManager.Instance.StopSound(AudioManagerChannels.ThrusterChannel);
+        AudioManager.Instance.StopSound(AudioManagerChannels.SideThrusterChannel);
     }
     void EnableGameWonUI()
     {
@@ -152,6 +156,12 @@ public class UIManager : MonoBehaviour
     }
     public void RestartGame()
     {
+        Debug.Log("Restarted!");
         BountyManager.instance.RestartGame();
-    }    
+    }
+    
+    public void LoadLevel()
+    {
+        SceneManager.LoadSceneAsync("AsteroidBelt");
+    }
 }

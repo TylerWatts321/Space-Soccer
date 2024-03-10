@@ -526,6 +526,7 @@ MonoBehaviour:
   side: 1
   spawnBox: {fileID: 142448334}
   AsteroidPrefab: {fileID: 6168395866992407522, guid: 01a5b779a37ecd9479aecdb323f0fa22, type: 3}
+  goalSound: {fileID: 8300000, guid: 6c3dc0dc416e09d41bff9657b26deaef, type: 3}
   SpawnTimeMultiplier: 2
 --- !u!1 &148944394
 GameObject:
@@ -1017,6 +1018,7 @@ MonoBehaviour:
   side: 3
   spawnBox: {fileID: 635324646}
   AsteroidPrefab: {fileID: 6168395866992407522, guid: 01a5b779a37ecd9479aecdb323f0fa22, type: 3}
+  goalSound: {fileID: 8300000, guid: 6c3dc0dc416e09d41bff9657b26deaef, type: 3}
   SpawnTimeMultiplier: 2
 --- !u!4 &649106098 stripped
 Transform:
@@ -1875,9 +1877,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 952923171}
     - target: {fileID: 207179431045747457, guid: 9ad84f938a4d4654b8aa32607006bfcd, type: 3}
+      propertyPath: launchClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 37ff61fac88eeba4495e60c5553ecdea, type: 3}
+    - target: {fileID: 207179431045747457, guid: 9ad84f938a4d4654b8aa32607006bfcd, type: 3}
       propertyPath: playerInput
       value: 
       objectReference: {fileID: 952923177}
+    - target: {fileID: 808251925212089376, guid: 9ad84f938a4d4654b8aa32607006bfcd, type: 3}
+      propertyPath: thrownClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c604d6976b4b38468abece4ffb8c8dd, type: 3}
+    - target: {fileID: 808251925212089376, guid: 9ad84f938a4d4654b8aa32607006bfcd, type: 3}
+      propertyPath: hookHitClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b3b382abd5248d54ea0fd3fd4c5b7288, type: 3}
     - target: {fileID: 808251925212089376, guid: 9ad84f938a4d4654b8aa32607006bfcd, type: 3}
       propertyPath: HookableLayerMask.m_Bits
       value: 64
@@ -2226,6 +2240,7 @@ MonoBehaviour:
   side: 2
   spawnBox: {fileID: 1578441759}
   AsteroidPrefab: {fileID: 6168395866992407522, guid: 01a5b779a37ecd9479aecdb323f0fa22, type: 3}
+  goalSound: {fileID: 8300000, guid: 6c3dc0dc416e09d41bff9657b26deaef, type: 3}
   SpawnTimeMultiplier: 2
 --- !u!1 &1591123704
 GameObject:
@@ -2692,6 +2707,14 @@ PrefabInstance:
     - target: {fileID: 2756547138311335362, guid: 6f41acaa1f900a740b79eeca083b404f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483319918889151738, guid: 6f41acaa1f900a740b79eeca083b404f, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5483319918889151738, guid: 6f41acaa1f900a740b79eeca083b404f, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5483319918889151740, guid: 6f41acaa1f900a740b79eeca083b404f, type: 3}
       propertyPath: m_Name
@@ -3439,6 +3462,7 @@ MonoBehaviour:
   side: 0
   spawnBox: {fileID: 1958647079}
   AsteroidPrefab: {fileID: 6168395866992407522, guid: 01a5b779a37ecd9479aecdb323f0fa22, type: 3}
+  goalSound: {fileID: 8300000, guid: 6c3dc0dc416e09d41bff9657b26deaef, type: 3}
   SpawnTimeMultiplier: 2
 --- !u!1 &1993953713
 GameObject:
@@ -3781,7 +3805,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4949222506654473905, guid: ac58bafb347926945939ec29fd2b2a02, type: 3}
+      propertyPath: rotateSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4949222506654473905, guid: ac58bafb347926945939ec29fd2b2a02, type: 3}
+      propertyPath: acceleration
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 4949222506654473905, guid: ac58bafb347926945939ec29fd2b2a02, type: 3}
+      propertyPath: thrusterClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 508137f3cc3055a4db389c8047e605b1, type: 3}
+    - target: {fileID: 4949222506654473905, guid: ac58bafb347926945939ec29fd2b2a02, type: 3}
+      propertyPath: sideThrusterClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c6da121e4a5aec441a6f1a6d51bcf724, type: 3}
+    - target: {fileID: 7138372935629134547, guid: ac58bafb347926945939ec29fd2b2a02, type: 3}
+      propertyPath: healClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f0b1c0bfa81bd434babebddc4084bfc8, type: 3}
+    m_RemovedComponents:
+    - {fileID: 7725886476634972667, guid: ac58bafb347926945939ec29fd2b2a02, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

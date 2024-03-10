@@ -10,17 +10,20 @@ public class ObjectSpawner : MonoBehaviour
     public BoxCollider2D spawnBox;
     public GameObject AsteroidPrefab;
 
+    public AudioClip goalSound;
+
     public float SpawnTimeMultiplier = 6f;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (BountyManager.instance.currentWave.AsteroidGoals.Contains(this) 
+        if (BountyManager.instance.currentWave.AsteroidGoals.Contains(this)     
             && other.gameObject.layer == 6 
             && other.name.Contains("(Launched)"))
         {
 
             Asteroid asteroid = other.gameObject.GetComponent<Asteroid>();
             BountyManager.instance.UpdatePlayerScore(asteroid.Score);
+            AudioManager.Instance.PlaySound(AudioManagerChannels.SoundEffectChannel, goalSound);
         }
     }
 

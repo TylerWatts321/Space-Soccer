@@ -31,7 +31,6 @@ public class Hook : MonoBehaviour
 
     private void HookObj(GameObject selObj)
     {
-        //Instantiate(hookHit, transform.position, Quaternion.identity);
         Debug.Log($"Hooked: {selObj.name}");
 
         grabbedObj = Instantiate(selObj,
@@ -40,6 +39,8 @@ public class Hook : MonoBehaviour
 
         Rigidbody2D grabbedRigidbody = grabbedObj.GetComponent<Rigidbody2D>();
         grabbedRigidbody.isKinematic = true;
+
+        AudioManager.Instance.PlaySound(AudioManagerChannels.SoundEffectChannel, hookHitClip);
 
         Whippable whip = grabbedObj.AddComponent<Whippable>();
         whip.p = harpoon.player.GetComponent<Player>();
@@ -73,7 +74,7 @@ public class Hook : MonoBehaviour
         grabbedRigidbody.isKinematic = false;
         grabbedRigidbody.AddForce(harpoon.transform.right * 700);
         grabbedObj.gameObject.name += "(Launched)";
-        //AudioManager.Instance.PlaySound(AudioManagerChannels.SoundEffectChannel, thrownClip);
+        AudioManager.Instance.PlaySound(AudioManagerChannels.SoundEffectChannel, thrownClip);
 
         harpoon.hState = Harpoon.HookState.Retracting;
     }

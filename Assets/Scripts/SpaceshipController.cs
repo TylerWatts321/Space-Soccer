@@ -13,6 +13,7 @@ public class SpaceshipController : MonoBehaviour
 
     public event Action HasStoppedMoving = delegate { };
 
+    
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -27,6 +28,7 @@ public class SpaceshipController : MonoBehaviour
     {
         _playerInput.Move -= OnAccelerateDirectional;
         _playerInput.Rotate -= OnRotate;
+
     }
     private void OnRotate(Vector2 mousePos)
     {
@@ -53,12 +55,11 @@ public class SpaceshipController : MonoBehaviour
     {
         if (direction.x != 0)
         {
-            _rigidbody2D.AddForce(-transform.up * acceleration * direction.x);
-            
+            _rigidbody2D.AddForce(-transform.up * acceleration * direction.x * Time.fixedDeltaTime);
         }
         if (direction.y != 0)
         {
-            _rigidbody2D.AddForce(transform.right * acceleration * direction.y);
+            _rigidbody2D.AddForce(transform.right * acceleration * direction.y * Time.fixedDeltaTime);
         }
     }
 }

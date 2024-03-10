@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public event Action<float, float> UpdateHealth = delegate { };
-
+    public AudioClip healClip;
     public float CollisionMultiplier = 15f;
     public float ImpactBaseValue = 3f;
 
@@ -71,7 +71,7 @@ public class PlayerHealth : MonoBehaviour
     }
     void EndRegen(BountyManager.Wave wave)
     {
-        if (wave.WaveNum % 5 != 0) { return; }
+        if ((wave.WaveNum - 1) % 5 != 0) { return; }
         CancelInvoke(nameof(Heal));
     }
 
@@ -83,6 +83,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Heal()
     {
+        AudioManager.Instance.PlaySound(AudioManagerChannels.SoundEffectChannel, healClip);
         HP = Mathf.Clamp(HP + HP_PerSec, 0f, MAX_HP);
         UpdateHealth(HP, MAX_HP);
     }
